@@ -1,0 +1,33 @@
+name: Multi-phase CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Phase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build project
+        run: echo "🏗️ Building project..."
+
+  test:
+    name: Test Phase
+    runs-on: ubuntu-latest
+    needs: build    # Wait for build to finish
+    steps:
+      - name: Run tests
+        run: echo "🧪 Running tests after build..."
+
+  deploy:
+    name: Deploy Phase
+    runs-on: ubuntu-latest
+    needs: test     # Wait for tests to finish
+    steps:
+      - name: Deploy application
+        run: echo "🚀 Deploying application..."
