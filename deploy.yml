@@ -1,0 +1,12 @@
+name: Deploy Workflow
+on:
+  workflow_run:
+    workflows: ["Test Workflow"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🚀 Deploying application..."
